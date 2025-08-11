@@ -1,23 +1,18 @@
-# Build stage
+# Use .NET 8 SDK for build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy csproj, sln, and props files first (for restore caching)
-COPY Kanaklytics.API.csproj ./
-COPY Kanaklytics.sln ./
-COPY Directory.Packages.props ./   # only if you have this
-COPY NuGet.Config ./               # only if you have this
+# Copy csproj first for restore caching
+COPY KanaklyticsAPI/Kanaklytics.API.csproj ./KanaklyticsAPI/
 
-# Restore packages from nuget.org
-RUN dotnet restore Kanaklytics.sln --no-cache --source https://api.nuget.org/v3/index.json
+# Restore dependencies
+RUN dotnet restore ./KanaklyticsAPI/Kanaklytics.API.csproj
 
-# Copy the rest of the source
-COPY . ./
+# Copy everything and build
+COPY . .
+RUN dotnet publish ./KanaklyticsAPI/Kanaklytics.API.csproj -c Release -o /app/publish
 
-# Publish
-RUN dotnet publish Kanaklytics.API.csproj -c Release -o /app/publish --no-restore
-
-# Runtime stage
+# Use .NET 8 runtime for final container
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
