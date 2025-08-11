@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "qJmqTMKj/kS0WNE5oCC+qJuFRC+cGiyHTxoNSrZgBrE=",
+  "Source": "Kanaklytics.API",
+  "BasePath": "_content/Kanaklytics.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
