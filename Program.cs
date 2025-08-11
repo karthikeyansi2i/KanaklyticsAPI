@@ -8,7 +8,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .WithOrigins("http://localhost:8080", "https://your-frontend-domain.com") // your UI origins http://localhost:8080/
+                .WithOrigins("http://localhost:8080", "https://kanaklytics-ui.vercel.app") // your UI origins http://localhost:8080/
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials(); // if sending cookies/auth headers
